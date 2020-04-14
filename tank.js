@@ -1,5 +1,4 @@
 //tank
-//beef
 
 var attack_mode = true
 
