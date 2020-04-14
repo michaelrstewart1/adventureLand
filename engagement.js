@@ -104,6 +104,40 @@ function engageTarget(target) {
 	}
 }
 
+function mainTank() {
+	var target = get_targeted_monster();
+	if (!target) {
+		if (character.targets > 0) {
+			target=get_nearest_attacker();
+			if (target) {
+				change_target(target);
+			} else {
+				set_message("No Monsters");
+			}
+		} else {
+			target=get_nearest_monster({min_xp:3000,max_att:600});
+			if (target) {
+				change_target(target);
+			} else {
+				set_message("No Monsters");
+			}
+		}
+	}
+	//even though we have a target, make sure we don't need to 
+	//switch targets to b'tect a best buddy
+	if (character.party) {
+		var targetToTaunt = protect();
+		if (targetToTaunt) {
+			log("Taunt "+targetToTaunt.name);
+			target = targetToTaunt;
+		}
+	}
+	
+	if (target) {
+		engageTarget(target);
+	}
+}
+
 function goSolo() {
 	//check for currently targeted monster
 	var target=get_targeted_monster();
