@@ -19,16 +19,16 @@ setTimeout(function () {
 }, 1000); //Delay execution of Grind Code to load ajax.
 
 var urls = [
-	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/movement.js',
-	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/engagement.js',
-	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/healing.js',
-	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/gui.js',
-	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/party.js',
-	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/items.js',
-//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/mage.js',
-//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/priest.js',
-//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/ranger.js',
-//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/tank.js'
+	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/movement.js',
+	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/engagement.js',
+	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/healing.js',
+	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/gui.js',
+	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/party.js',
+	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/items.js',
+//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/mage.js',
+//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/priest.js',
+//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/ranger.js',
+//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/tank.js'
 ]
 
 $.each(urls, function(i, u) {
