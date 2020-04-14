@@ -71,8 +71,8 @@ function kite(target) {
 function calculateDistance(last_x, last_y, new_x, new_y) {
 	chx = new_x - last_x;
 	chy = new_y - last_y;
-	distance = Math.sqrt(chx * chx + chy * chy);
-	return distance;
+	calcDistance = Math.sqrt(chx * chx + chy * chy);
+	return calcDistance;
 }
 
 function getNextKiteCoordinates(character, target, reverse, angle, rangeScale) {
