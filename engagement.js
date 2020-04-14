@@ -16,7 +16,11 @@ function getMainAssist() {
 				}
 			}
 		}
-		return tank.name;
+		if (tank) {
+			return tank.name;
+		} else {
+			return;	
+		}
 	} else {
 		return
 	}
