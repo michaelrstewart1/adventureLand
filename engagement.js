@@ -131,3 +131,36 @@ function goSolo() {
 		engageTarget(target);
 	}
 }
+
+function get_nearest_attacker() {
+	var min_d=999999;
+	var target;
+	for (id in parent.entities) {
+		var current=parent.entities[id];
+		if (current.type!="monster" || !current.visible || current.rip || current.invincible) continue;
+		if (current.target != character.name) continue;
+		var c_dist=parent.distance(character,current);
+		if (c_dist<min_d) {
+			min_d=c_dist;
+			target=current;
+		}
+	}
+	return target;
+}
+
+function protect() {
+	for (id in parent.entities) {
+		var current=parent.entities[id];
+		if (current.type!="character" || current.rip) continue;
+		if (current.party != character.party) continue;
+		if (current.targets == 0) continue;
+		if (!can_move_to(current.x,current.y)) continue;
+		for (monsterID in parent.entities) {
+			var currentMonster=parent.entities[monsterID];
+			if (currentMonster.type != "monster") continue;
+			if (currentMonster.target != current.name) continue;
+			if (!can_move_to(currentMonster.x,currentMonster.y)) continue;
+			return currentMonster;
+		}
+	}
+}
