@@ -65,3 +65,19 @@ function healParty(party) {
 	}
 	return false;
 }
+
+function compare(a, b) {
+	// Use toUpperCase() to ignore character casing
+	const percentA = a.percent_hp;
+	const percentB = b.percent_hp;
+	const hpA = a.hp;
+	const hpB = b.hp;
+
+	let comparison = 0;
+	if (hpA > hpB) {
+		comparison = 1;
+	} else if (hpA < hpB) {
+		comparison = -1;
+	}
+	return comparison;
+}
