@@ -16,14 +16,21 @@ setTimeout(function () {
 		if (!attack_mode || character.rip) {
 			return;
 		}
-
-		if (party["Beef"]) {
-			player = get_player("Beef");
-			if (player) {
-				mode = "assist"
+		
+		if (character.party != "") {
+			var mainAssistName = getMainAssist()
+			if (mainAssistName) {
+				player = get_player(mainAssistName);
+				if (player) {
+					mode = "assist"
+				} else {
+					mode = "solo"	
+				}
+			} else {
+				mode = "solo"	
 			}
 		} else {
-			//log("no party found. Going solo");
+			mode = "solo"
 		}
 
 		if (mode == "assist") {
