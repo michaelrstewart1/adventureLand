@@ -40,7 +40,7 @@ setTimeout(function () {
 		}
 
 	},1000/4); // Loops every 1/4 seconds.
-}, 500); //Delay execution of Grind Code by 500 milliseconds to load ajax.
+}, 1000); //Delay execution of Grind Code by 500 milliseconds to load ajax.
 
 var urls = [
 	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/movement.js',
