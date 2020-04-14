@@ -1,4 +1,5 @@
 //movement
+var seeking = false;
 
 function kite(target) {
 	//if we get to here, we know we have a target
