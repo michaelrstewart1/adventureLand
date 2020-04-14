@@ -9,8 +9,8 @@ setTimeout(function () {
 		doInvites();
 		update_xptimer();
 
-		var party = get_party();
-		var partyKeys = Object.keys(party);
+		//var party = get_party();
+		//var partyKeys = Object.keys(party);
 		var player;
 
 		if (!attack_mode || character.rip) {
