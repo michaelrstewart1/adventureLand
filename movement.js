@@ -1,4 +1,5 @@
 //movement
+
 function kite(target) {
 	//if we get to here, we know we have a target
 	var howFarAway = distance(character,target);
@@ -62,7 +63,7 @@ function getNextKiteCoordinates(character, target, reverse, angle, rangeScale) {
 function smarter_move(x,y,character,target) {
 	seeking = true;
 	if (!character || !target) return;
-    if (can_move_to(x,y)) {
+	if (can_move_to(x,y)) {
 		//stop("smart");
 		var range = character.range * 0.8;
 		var x = character.x - target.x;
