@@ -115,7 +115,7 @@ function mainTank() {
 				set_message("No Monsters");
 			}
 		} else {
-			target=get_nearest_monster({min_xp:3000,max_att:600});
+			target=get_nearest_monster({min_xp:200,max_att:200});
 			if (target) {
 				change_target(target);
 			} else {
@@ -147,7 +147,7 @@ function goSolo() {
 		//if we need to rest, then rest
 		//no need to rest
 		//target nearest monster
-		target=get_nearest_monster({min_xp:1000,max_att:750});
+		target=get_nearest_monster({min_xp:200,max_att:200});
 		
 		//if we found a monster, target it
 		if (target) {
