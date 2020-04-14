@@ -1,6 +1,17 @@
 //engagement of targets
 var mode = "solo";
 
+function assist(player) {
+	if (!is_in_range(player) && !seeking) {
+		catchUpTo(player);
+	} else {
+		var whatToAttack = parent.entities[get_player(player.name).target];
+		if (whatToAttack) {
+			engageTarget(whatToAttack);
+		}
+	}	
+}
+
 function engageTarget(target) {
 	//check if in range
 	if (is_in_range(target)) {
