@@ -1,4 +1,6 @@
 //engagement of targets
+var mode = "solo";
+
 function engageTarget(target) {
 	//check if in range
 	if (is_in_range(target)) {
