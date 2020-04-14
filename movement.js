@@ -9,7 +9,7 @@ var last_y2 = character.y;
 
 function kite(target) {
 	//if we get to here, we know we have a target
-	var howFarAway = distance(character,target);
+	var howFarAway = parent.distance(character,target);
 	var howFarTheyCanHit = target.range;
 	var rotationDegrees = 30;
 	var newRelativeCoordinates = getNextKiteCoordinates(character, target, reverseKiteRotation, rotationDegrees, 1);
