@@ -71,7 +71,7 @@ function engageTarget(target) {
 			}
 		} else {
 			//they are in range and not targeting us. Hold position
-			if (target.target == "" && parent.distance(character,target) <= target.range) {
+			if (target.target == "" && distance(character,target) <= target.range) {
 				if (target.range < character.range) {
 					//getting out of range before engaging
 					log("getting out of range before first hit");
@@ -95,7 +95,7 @@ function engageTarget(target) {
 	
 	//check if in range and attack
 	if (is_in_range(target) && can_attack(target) && !is_on_cooldown("attack")) {
-		if (target.target == "" && parent.distance(character,target) <= target.range) {
+		if (target.target == "" && distance(character,target) <= target.range) {
 			//too close. wait until we get out of range
 			log("getting out of range before attacking");
 		} else {
@@ -173,7 +173,7 @@ function get_nearest_attacker() {
 		var current=parent.entities[id];
 		if (current.type!="monster" || !current.visible || current.rip || current.invincible) continue;
 		if (current.target != character.name) continue;
-		var c_dist=parent.distance(character,current);
+		var c_dist=distance(character,current);
 		if (c_dist<min_d) {
 			min_d=c_dist;
 			target=current;
