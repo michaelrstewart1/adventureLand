@@ -22,6 +22,32 @@ function getMainAssist() {
 	}
 }
 
+function priestEngage(player) {
+	var partyKeys = Object.keys(get_party());
+	var party = get_party();
+	if (party) {
+		var healedSomeone = healParty(partyKeys);
+		if (!healedSomeone) {
+			//we didn't heal someone, so lets try to assist
+			var whatToAttack = parent.entities[player.target];
+			if (whatToAttack && is_in_range(whatToAttack) && !is_on_cooldown("attack")) {
+				if (!is_in_range(whatToAttack)) {
+					log("Target out of range. Moving closer");
+					smarter_move(
+						whatToAttack.x,
+						whatToAttack.y,
+						character,
+						whatToAttack
+					);
+				} else {
+					//log("Attacking");
+					attack(whatToAttack);
+				}
+			}
+		}
+	}
+}
+
 function assist(player) {
 	if (!is_in_range(player) && !seeking) {
 		catchUpTo(player);
