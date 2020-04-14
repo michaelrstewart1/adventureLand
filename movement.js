@@ -1,5 +1,6 @@
 //movement
 var seeking = false;
+var reverseKiteRotation = false;
 
 function kite(target) {
 	//if we get to here, we know we have a target
