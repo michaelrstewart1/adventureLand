@@ -43,3 +43,31 @@ function engageTarget(target) {
 		}
 	}
 }
+
+function goSolo() {
+	//check for currently targeted monster
+	var target=get_targeted_monster();
+	
+	//if nothing already targeted, target nearest monster
+	if (!target) {
+		//if we need to rest, then rest
+		//no need to rest
+		//target nearest monster
+		target=get_nearest_monster({min_xp:1000,max_att:750});
+		
+		//if we found a monster, target it
+		if (target) {
+			change_target(target);
+
+		} else {
+			//no monsters found :(
+			//try again in 0.25 seconds
+			set_message("No Monsters");
+			return;
+		}
+	}
+	
+	if (target) {
+		engageTarget(target);
+	}
+}
