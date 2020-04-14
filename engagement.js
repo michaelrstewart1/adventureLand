@@ -1,6 +1,27 @@
 //engagement of targets
 var mode = "solo";
 
+function getMainAssist() {
+	if (character.party != "") {
+		var highestTankLevel = 0;
+		var tank;
+		var party = get_party();
+		var potentialTank;
+		for (let i in party) {
+			potentialTank = get_player(party[i]);
+			if (potentialTank) {
+				if (potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
+					highestTankLevel = potentialTank.level;
+					tank = potentialTank;
+				}
+			}
+		}
+		return tank.name;
+	} else {
+		return
+	}
+}
+
 function assist(player) {
 	if (!is_in_range(player) && !seeking) {
 		catchUpTo(player);
