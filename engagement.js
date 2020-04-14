@@ -9,7 +9,7 @@ function getMainAssist() {
 		var potentialTank;
 		var partyKeys = Object.keys(party);
 		for (let i in partyKeys) {
-			potentialTank = get_player(party[partyKeys[i]]);
+			potentialTank = get_player(partyKeys[i]);
 			if (potentialTank) {
 				if (potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
 					highestTankLevel = potentialTank.level;
