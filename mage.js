@@ -2,36 +2,38 @@
 
 var attack_mode=true
 
-setInterval(function() {
-	use_regen();
-	loot();
-	doInvites();
-	update_xptimer();
-	
-	var party = get_party();
-	var partyKeys = Object.keys(party);
-	var player;
-	
-	if (!attack_mode || character.rip) {
-		return;
-	}
-	
-	if (party["Beef"]) {
-		player = get_player("Beef");
-		if (player) {
-			mode = "assist"
+setTimeout(function () {
+	setInterval(function() {
+		use_regen();
+		loot();
+		doInvites();
+		update_xptimer();
+
+		var party = get_party();
+		var partyKeys = Object.keys(party);
+		var player;
+
+		if (!attack_mode || character.rip) {
+			return;
 		}
-	} else {
-		//log("no party found. Going solo");
-	}
 
-	if (mode == "assist") {
-		assist(player);
-	} else if (mode == "solo") {
-		goSolo();
-	}
+		if (party["Beef"]) {
+			player = get_player("Beef");
+			if (player) {
+				mode = "assist"
+			}
+		} else {
+			//log("no party found. Going solo");
+		}
 
-},1000/4); // Loops every 1/4 seconds.
+		if (mode == "assist") {
+			assist(player);
+		} else if (mode == "solo") {
+			goSolo();
+		}
+
+	},1000/4); // Loops every 1/4 seconds.
+}, 500); //Delay execution of Grind Code by 500 milliseconds to load ajax.
 
 var urls = [
 	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand/movement.js',
