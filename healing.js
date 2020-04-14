@@ -1,4 +1,5 @@
 //hp and mp management
+var last_heal = new Date();
 
 function use_regen() {
 	var manaPercent = character.mp/character.max_mp;
@@ -18,6 +19,22 @@ function use_regen() {
 		use_skill("regen_hp");
 	}
 	return;
+}
+
+function doHeal() {
+	if (parent.safeties && parent.mssince(last_heal) < min(200, parent.character.ping*3)) {
+		return;
+	}
+	var used = false;
+	if (new Date() < parent.next_skill.use_hp) return;
+	if (parent.character.mp / parent.character.max_mp < 0.25) {
+		parent.use_skill('regen_mp',parent.character);
+		used = true;
+	} else if (parent.character.hp < parent.character.max_hp) {
+		parent.use_skill('regen_hp',parent.character);
+		used = true;
+	}
+	if (used) last_heal = new Date();
 }
 
 function healParty(party) {
