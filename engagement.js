@@ -134,6 +134,9 @@ function mainTank() {
 		if (targetToTaunt) {
 			log("Taunt "+targetToTaunt.name);
 			target = targetToTaunt;
+			if (is_in_range(target) && !is_on_cooldown("taunt")) {
+				use_skill("taunt");
+			}
 		}
 	}
 	
