@@ -1,6 +1,8 @@
 //tank
 
 var attack_mode = true
+var party = get_party();
+var partyKeys = Object.keys(party);
 
 setTimeout(function () {
 	setInterval(function(){
