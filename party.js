@@ -83,7 +83,6 @@ function on_party_request(name) {
 function doInvites() {
 	var mainLeaderName = "Beef";
 	if (!character.party) {
-		log("We are not grouped");
 		var groupLeader = "";
 		//we are not grouped
 		//check to see if any bros are online and already grouped
@@ -94,7 +93,6 @@ function doInvites() {
 				if (partyPlayer) {
 					if (partyPlayer.party && partyPlayer.ts > Date.now() - 2000) {
 						groupLeader = partyPlayer.party;
-						log("Not grouped. Found bro with group. Party leader "+groupLeader);
 					}
 				}
 			}
@@ -102,11 +100,10 @@ function doInvites() {
 		
 		//if a bro is grouped, request an invite
 		if (groupLeader != "") {
-			send_party_request(broGrouped);
+			send_party_request(groupLeader);
 		} else {
 			//we are not in a party 
 			//none of the bros are in a party
-			
 			//start a group if we are main leader
 			if (character.name == mainLeaderName) {
 				var partyPlayer;
@@ -115,7 +112,6 @@ function doInvites() {
 						let partyPlayer = get("character_data_"+(players[i]));
 						if (partyPlayer) {
 							if (partyPlayer.name && partyPlayer && partyPlayer.ts > Date.now() - 2000) {
-								log("Sending invite to "+partyPlayer.name);
 								send_party_invite(partyPlayer.name);
 							}
 						}
