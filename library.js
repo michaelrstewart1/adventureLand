@@ -1,23 +1,23 @@
+//////////////////////////////////////////////////////////////
+////////// ENGAGEMENT
 //engagement of targets
 var mode = "solo";
 
 function getMainAssist() {
-	if (character.party != "") {
+	if (character.party) {
 		var highestTankLevel = 0;
 		var tank;
-		var party = get_party();
-		var potentialTank;
-		for (let i in party) {
-			potentialTank = get_player(party[i]);
+		for (let i in partyKeys) {
+			let potentialTank = get("character_data_"+partyKeys[i]);
 			if (potentialTank) {
-				if (potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
+				if (potentialTank.ts > Date.now() - 2000 && potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
 					highestTankLevel = potentialTank.level;
 					tank = potentialTank;
 				}
 			}
 		}
 		if (tank) {
-			return tank.name;
+			return tank;
 		} else {
 			return;	
 		}
@@ -27,13 +27,14 @@ function getMainAssist() {
 }
 
 function priestEngage(player) {
-	var partyKeys = Object.keys(get_party());
-	var party = get_party();
-	if (party) {
+	if (character.party) {
 		var healedSomeone = healParty(partyKeys);
 		if (!healedSomeone) {
 			//we didn't heal someone, so lets try to assist
-			var whatToAttack = parent.entities[player.target];
+			let realPlayerObject = get_player(player.name);
+			if (!realPlayerObject) return;
+			
+			var whatToAttack = parent.entities[realPlayerObject.target];
 			if (whatToAttack && is_in_range(whatToAttack) && !is_on_cooldown("attack")) {
 				if (!is_in_range(whatToAttack)) {
 					log("Target out of range. Moving closer");
@@ -44,7 +45,6 @@ function priestEngage(player) {
 						whatToAttack
 					);
 				} else {
-					//log("Attacking");
 					attack(whatToAttack);
 				}
 			}
@@ -53,7 +53,7 @@ function priestEngage(player) {
 }
 
 function assist(player) {
-	if (!is_in_range(player) && !seeking) {
+	if (!is_in_range(player)) {
 		catchUpTo(player);
 	} else {
 		var whatToAttack = parent.entities[get_player(player.name).target];
@@ -86,7 +86,7 @@ function engageTarget(target) {
 		
 	} else {
 		//they are out of range. Approach them
-		if (!character.moving && !seeking) {
+		if (!character.moving) {
 			log("Moving towards target");
 			smarter_move(
 				target.x,
@@ -202,7 +202,11 @@ function protect() {
 		}
 	}
 }
+/////////// END ENGAGEMENT
+//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+////////// GUI
 //GUI components
 var minute_refresh; // how long before the clock resets
 
@@ -276,7 +280,11 @@ function ncomma(x) {
 }
 
 init_xptimer(5);
+/////////// END GUI
+//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+////////// HEALING
 //hp and mp management
 var last_heal = new Date();
 
@@ -377,7 +385,11 @@ function compare(a, b) {
 	}
 	return comparison;
 }
+/////////// END HEALING
+//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+////////// ITEMS
 var uc = false; //Enable Upgrading/Compounding/selling/exchanging of items = true, Disable Upgrading/Compounding/selling/exchanging of items = false
 var upgrade_level = 8; //Max level it will stop upgrading items at if enabled
 var compound_level = 3; //Max level it will stop compounding items at if enabled
@@ -477,7 +489,11 @@ function find_item_filter(filter, search_slot) {
 
   return [-1, null];
 }
+/////////// END ITEMS
+//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+////////// MOVEMENT
 //movement
 var seeking = false;
 var reverseKiteRotation = false;
@@ -615,11 +631,43 @@ function catchUpTo(target) {
 		return;
 	}
 }
+/////////// END MOVEMENT
+//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+////////// PARTY
 //party management
 
 //TODO: need to make the character list dynamic instead of hard-coding
 var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
+
+function update_character_localstorage() {
+	let data = {
+		'name': character.name,
+		'x': character.real_x,
+		'y': character.real_y,
+		'from_x': character.from_x,
+		'from_y': character.from_y,
+		'going_x': character.going_x,
+		'going_y': character.going_y,
+		'map': character.map,
+		'max_hp': character.max_hp,
+		'hp': character.hp,
+		'max_mp': character.max_mp,
+		'mp': character.mp,
+		'level': character.level,
+		'ctype': character.ctype,
+		'range': character.range,
+		'targets': character.targets,
+		'target': character.target,
+		'rip': character.rip,
+		'party': character.party,
+		'visible': character.visible,
+		'moving': character.moving,
+		'ts': Date.now(),
+	}
+	set("character_data_"+character.name, data);
+}
 
 function on_party_invite(name) {
 	if (name == "Beef" || name == "Pragmus" || name == "CohenPlaces" || name == "GoldenRanger") {
@@ -635,18 +683,17 @@ function on_party_request(name) {
 
 function doInvites() {
 	var mainLeaderName = "Beef";
-	if (character.party == "") {
-		log("We are not grouped");
+	if (!character.party) {
+		//log("We are not grouped");
 		var groupLeader = "";
 		//we are not grouped
 		//check to see if any bros are online and already grouped
 		var partyPlayer;
-		var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 		for (let x in players) {
 			if (players[x] != character.name) {
-				partyPlayer = get_player(players[x]);
+				let partyPlayer = get("character_data_"+(players[x]));
 				if (partyPlayer) {
-					if (partyPlayer.party != "") {
+					if (partyPlayer.party && partyPlayer.ts > Date.now() - 2000) {
 						groupLeader = partyPlayer.party;
 						log("Not grouped. Found bro with group. Party leader "+groupLeader);
 					}
@@ -664,12 +711,11 @@ function doInvites() {
 			//start a group if we are main leader
 			if (character.name == mainLeaderName) {
 				var partyPlayer;
-				var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 				for (let i in players) {
 					if (players[i] != character.name) {
-						partyPlayer = get_player(players[i]);
+						let partyPlayer = get("character_data_"+(players[i]));
 						if (partyPlayer) {
-							if (partyPlayer.name) {
+							if (partyPlayer.name && partyPlayer && partyPlayer.ts > Date.now() - 2000) {
 								log("Sending invite to "+partyPlayer.name);
 								send_party_invite(partyPlayer.name);
 							}
@@ -683,15 +729,18 @@ function doInvites() {
 		if (character.name == character.party) {
 			//we are leader of current party, so do invites
 			var partyPlayer;
-			var party = get_party();
-			var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 			for (let p in players) {
 				if (players[p] !== character.name) {
-					if (!party[players[p]]) {
-						send_party_invite(players[p]);
+					let partyPlayer = get("character_data_"+(players[p]));
+					if (partyPlayer) {
+						if (!party[players[p]] && partyPlayer.ts > Date.now() - 2000) {
+							send_party_invite(players[p]);
+						}
 					}
 				}
 			}
 		}
 	}
 }
+/////////// END PARTY
+//////////////////////////////////////////////////////////////
