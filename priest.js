@@ -36,7 +36,7 @@ setTimeout(function () {
 		}
 
 		if (!is_in_range(player)) {
-			catchUpTo(character, player);
+			catchUpTo(player);
 		} else {
 			priestEngage(player);
 		}
