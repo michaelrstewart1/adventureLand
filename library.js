@@ -1392,7 +1392,7 @@ function doInvites() {
 		
 		//if a bro is grouped, request an invite
 		if (groupLeader != "") {
-			send_party_request(broGrouped);
+			send_party_request(groupLeader);
 		} else {
 			//we are not in a party 
 			//none of the bros are in a party
