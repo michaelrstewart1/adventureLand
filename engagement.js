@@ -136,6 +136,8 @@ function mainTank() {
 			target = targetToTaunt;
 			if (is_in_range(target) && !is_on_cooldown("taunt")) {
 				use_skill("taunt");
+			} else if (!is_in_range(target) && !is_on_cooldown("charge")) {
+				use_skill("charge");	
 			}
 		}
 	}
