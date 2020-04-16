@@ -17,7 +17,7 @@ function on_party_request(name) {
 
 function doInvites() {
 	var mainLeaderName = "Beef";
-	if (character.party == "") {
+	if (!character.party) {
 		log("We are not grouped");
 		var groupLeader = "";
 		//we are not grouped
@@ -28,7 +28,7 @@ function doInvites() {
 			if (players[x] != character.name) {
 				partyPlayer = get_player(players[x]);
 				if (partyPlayer) {
-					if (partyPlayer.party != "") {
+					if (partyPlayer.party) {
 						groupLeader = partyPlayer.party;
 						log("Not grouped. Found bro with group. Party leader "+groupLeader);
 					}
