@@ -5,6 +5,7 @@ var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 
 function update_character_localstorage() {
 	let data = {
+		'name': character.name,
 		'x': character.real_x,
 		'y': character.real_y,
 		'from_x': character.from_x,
@@ -23,6 +24,8 @@ function update_character_localstorage() {
 		'target': character.target,
 		'rip': character.rip,
 		'party': character.party,
+		'visible': character.visible,
+		'moving': character.moving,
 		'ts': Date.now(),
 	}
 	set("character_data_"+character.name, data);
