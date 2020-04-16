@@ -1295,6 +1295,39 @@ setInterval(function() {
 }, 100);
 
 function update_character_localstorage() {
+	let data = get_character_data();
+	set("character_data_"+character.name, data);
+}
+
+function update_external_character_data(name) {
+	if (name) {
+		let request = {
+			"command": "get_character_data",
+		}
+		send_cm(name,request)
+	}
+}
+
+function on_cm(name,data) {
+	if (players.indexOf(name) >= 0) {
+		game_log("Received a code message from authorized user: "+name);
+		if (data) {
+			if (data.command == "get_character_data") {
+				let charData = get_character_data();
+				let data = {
+					"command": "update_character_data",
+					"data": data,
+				}
+				send_cm(name,data);
+			} else if (data.command == "update_character_data") {
+				let character_data = data.data;
+				set("character_data_"+name, character_data);
+			}
+		}
+	}
+}
+
+function get_character_data() {
 	let data = {
 		'name': character.name,
 		'x': character.real_x,
@@ -1319,13 +1352,7 @@ function update_character_localstorage() {
 		'moving': character.moving,
 		'ts': Date.now(),
 	}
-	set("character_data_"+character.name, data);
-}
-
-function on_cm(name,data) {
-	if (players.indexOf(name) >= 0) {
-	    game_log("Received a code message from authorized user: "+name);
-	}
+	return data;
 }
 
 function on_party_invite(name) {
