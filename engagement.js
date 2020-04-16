@@ -2,16 +2,14 @@
 var mode = "solo";
 
 function getMainAssist() {
-	if (character.party != "") {
+	if (character.party) {
 		var highestTankLevel = 0;
 		var tank;
-		var party = get_party();
-		var potentialTank;
-		var partyKeys = Object.keys(party);
+		var partyKeys = Object.keys(get_party());
 		for (let i in partyKeys) {
-			potentialTank = get_player(partyKeys[i]);
+			let potentialTank = get("character_data_"+partyKeys[i]);
 			if (potentialTank) {
-				if (potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
+				if (potentialTank.ts > Date.now() - 2000000 && potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
 					highestTankLevel = potentialTank.level;
 					tank = potentialTank;
 				}
