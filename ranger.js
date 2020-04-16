@@ -9,6 +9,7 @@ setTimeout(function () {
 		partyKeys = Object.keys(party);
 		use_regen();
 		loot();
+		update_character_localstorage();
 		doInvites();
 		update_xptimer();
 
