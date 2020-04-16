@@ -48,12 +48,11 @@ function doInvites() {
 		//we are not grouped
 		//check to see if any bros are online and already grouped
 		var partyPlayer;
-		var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 		for (let x in players) {
 			if (players[x] != character.name) {
-				partyPlayer = get_player(players[x]);
+				let partyPlayer = get("character_data_"+(players[x]));
 				if (partyPlayer) {
-					if (partyPlayer.party) {
+					if (partyPlayer.party && partyPlayer.ts > Date.now() - 2000) {
 						groupLeader = partyPlayer.party;
 						log("Not grouped. Found bro with group. Party leader "+groupLeader);
 					}
@@ -71,12 +70,11 @@ function doInvites() {
 			//start a group if we are main leader
 			if (character.name == mainLeaderName) {
 				var partyPlayer;
-				var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 				for (let i in players) {
 					if (players[i] != character.name) {
-						partyPlayer = get_player(players[i]);
+						let partyPlayer = get("character_data_"+(players[i]));
 						if (partyPlayer) {
-							if (partyPlayer.name) {
+							if (partyPlayer.name && partyPlayer && partyPlayer.ts > Date.now() - 2000) {
 								log("Sending invite to "+partyPlayer.name);
 								send_party_invite(partyPlayer.name);
 							}
@@ -91,11 +89,13 @@ function doInvites() {
 			//we are leader of current party, so do invites
 			var partyPlayer;
 			var party = get_party();
-			var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 			for (let p in players) {
 				if (players[p] !== character.name) {
-					if (!party[players[p]]) {
-						send_party_invite(players[p]);
+					let partyPlayer = get("character_data_"+(players[p]));
+					if (partyPlayer) {
+						if (!party[players[p]] && partyPlayer.ts > Date.now() - 2000) {
+							send_party_invite(players[p]);
+						}
 					}
 				}
 			}
