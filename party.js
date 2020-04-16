@@ -88,7 +88,6 @@ function doInvites() {
 		if (character.name == character.party) {
 			//we are leader of current party, so do invites
 			var partyPlayer;
-			var party = get_party();
 			for (let p in players) {
 				if (players[p] !== character.name) {
 					let partyPlayer = get("character_data_"+(players[p]));
