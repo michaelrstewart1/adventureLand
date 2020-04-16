@@ -10,9 +10,7 @@ setTimeout(function () {
 		partyKeys = Object.keys(party);
 		use_regen();
 		loot();
-		update_character_localstorage();
 		doInvites();
-		update_xptimer();
 
 		if (!attack_mode || character.rip || is_moving(character)) {
 			return;
