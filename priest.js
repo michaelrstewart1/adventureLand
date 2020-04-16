@@ -8,6 +8,7 @@ setTimeout(function () {
 		//use_hp_or_mp();
 		use_regen();
 		loot();
+		update_character_localstorage();
 		doInvites();
 		update_xptimer();
 
