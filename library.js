@@ -8,15 +8,18 @@
 ////////// ENGAGEMENT
 //engagement of targets
 var mode = "solo";
+var party = get_party();
+var partyKeys = Object.keys(party);
 
 function getMainAssist() {
 	if (character.party) {
 		var highestTankLevel = 0;
 		var tank;
+
 		for (let i in partyKeys) {
 			let potentialTank = get("character_data_"+partyKeys[i]);
 			if (potentialTank) {
-				if (potentialTank.ts > Date.now() - 2000 && potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
+				if (potentialTank.ts > Date.now() - 2000000 && potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
 					highestTankLevel = potentialTank.level;
 					tank = potentialTank;
 				}
@@ -57,9 +60,8 @@ function priestEngage(player) {
 		}
 	}
 }
-
 function assist(player) {
-	if (!is_in_range(player)) {
+	if (!is_in_range(player) && !seeking) {
 		catchUpTo(player);
 	} else {
 		var whatToAttack = parent.entities[get_player(player.name).target];
@@ -138,10 +140,13 @@ function mainTank() {
 	if (character.party) {
 		var targetToTaunt = protect();
 		if (targetToTaunt) {
-			log("Taunt "+targetToTaunt.name);
 			target = targetToTaunt;
 			if (is_in_range(target) && !is_on_cooldown("taunt")) {
+				log("Taunt "+targetToTaunt.name);
 				use_skill("taunt");
+			} else if (!is_in_range(target) && !is_on_cooldown("charge")) {
+				log("Charging "+targetToTaunt.name);
+				use_skill("charge");	
 			}
 		}
 	}
@@ -211,6 +216,7 @@ function protect() {
 		}
 	}
 }
+
 /////////// END ENGAGEMENT
 //////////////////////////////////////////////////////////////
 
