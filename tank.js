@@ -4,6 +4,8 @@ var attack_mode = true
 
 setTimeout(function () {
 	setInterval(function(){
+		party = get_party();
+		partyKeys = Object.keys(party);
 		use_regen();
 		loot();
 		doInvites();
