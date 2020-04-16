@@ -19,7 +19,7 @@ function getMainAssist() {
 		for (let i in partyKeys) {
 			let potentialTank = get("character_data_"+partyKeys[i]);
 			if (potentialTank) {
-				if (potentialTank.ts > Date.now() - 2000000 && potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
+				if (potentialTank.ts > Date.now() - 2000 && potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
 					highestTankLevel = potentialTank.level;
 					tank = potentialTank;
 				}
