@@ -69,7 +69,7 @@ function engageTarget(target) {
 		if (target.target == character.name) {
 			//they are targeting me
 			//kite if we have larger range, otherwise stand
-			if (target.range < character.range) {
+			if (target.range < character.range && character.ctype !== "warrior") {
 				kite(target);
 			}
 		} else {
