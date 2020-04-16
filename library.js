@@ -240,10 +240,6 @@ init_xptimer(5);
 init_ccmeter();
 init_dpsmeter(5);
 
-register_ccmeterhandler("player", ccmeter_playerhandler);    
-register_dpsmeterhandler("hit", dpsmeterHitHandler);
-parent.render_party = new_render_party;
-
 setInterval(function() {
 	update_xptimer()
 	update_ccmeter();
@@ -930,6 +926,9 @@ function getAngles(a, b, c) {
 	return [angleA, angleB];
 }
 
+register_ccmeterhandler("player", ccmeter_playerhandler);    
+register_dpsmeterhandler("hit", dpsmeterHitHandler);
+parent.render_party = new_render_party;
 /////////// END GUI
 //////////////////////////////////////////////////////////////
 
