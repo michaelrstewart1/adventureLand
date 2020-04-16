@@ -1,11 +1,13 @@
 //engagement of targets
 var mode = "solo";
+var party = get_party();
+var partyKeys = Object.keys(party);
 
 function getMainAssist() {
 	if (character.party) {
 		var highestTankLevel = 0;
 		var tank;
-		var partyKeys = Object.keys(get_party());
+
 		for (let i in partyKeys) {
 			let potentialTank = get("character_data_"+partyKeys[i]);
 			if (potentialTank) {
@@ -26,8 +28,8 @@ function getMainAssist() {
 }
 
 function priestEngage(player) {
-	var partyKeys = Object.keys(get_party());
-	var party = get_party();
+
+	
 	if (party) {
 		var healedSomeone = healParty(partyKeys);
 		if (!healedSomeone) {
