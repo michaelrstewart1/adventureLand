@@ -584,8 +584,8 @@ var reverseKiteRotation = false;
 var stuckThreshold = 2;
 var last_x = character.x;
 var last_y = character.y;
-var last_x2 = character.x;
-var last_y2 = character.y;
+var last_x2 = 99999;
+var last_y2 = 99999;
 
 function kite(target) {
 	//if we get to here, we know we have a target
