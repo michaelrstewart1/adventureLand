@@ -3,6 +3,31 @@
 //TODO: need to make the character list dynamic instead of hard-coding
 var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 
+function update_character_localstorage() {
+	let data = {
+		'x': character.real_x,
+		'y': character.real_y,
+		'from_x': character.from_x,
+		'from_y': character.from_y,
+		'going_x': character.going_x,
+		'going_y': character.going_y,
+		'map': character.map,
+		'max_hp': character.max_hp,
+		'hp': character.hp,
+		'max_mp': character.max_mp,
+		'mp': character.mp,
+		'level': character.level,
+		'ctype': character.ctype,
+		'range': character.range,
+		'targets': character.targets,
+		'target': character.target,
+		'rip': character.rip,
+		'party': character.party,
+		'ts': Date.now(),
+	}
+	set("character_data_"+character.name, data);
+}
+
 function on_party_invite(name) {
 	if (name == "Beef" || name == "Pragmus" || name == "CohenPlaces" || name == "GoldenRanger") {
 		accept_party_invite(name);
