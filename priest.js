@@ -2,44 +2,37 @@
 //pragmus
 
 var attack_mode = false
+var party = get_party();
+var partyKeys = Object.keys(party);
 
 setTimeout(function () {
 	setInterval(function() {
-		//use_hp_or_mp();
+		if (character.rip || is_moving(character)) {
+			return;
+		}
+		party = get_party();
+		partyKeys = Object.keys(party);
 		use_regen();
 		loot();
 		update_character_localstorage();
 		doInvites();
 		update_xptimer();
 
-		if (character.rip || is_moving(character)) {
-			return;
-		}
-
-		if (character.party != "") {
-			var mainAssistName = getMainAssist()
-			if (mainAssistName) {
-				player = get_player(mainAssistName);
-				if (player) {
-					mode = "assist"
-				} else {
-					return;
-				}
+		if (character.party) {
+			var mainAssist = getMainAssist()
+			if (mainAssist) {
+				mode = "assist"
 			} else {
 				return;
 			}
 		} else {
 			return;
 		}
-		var currentTarget = get_target();
-		if (!currentTarget) {
-			change_target(player);
-		}
-
-		if (!is_in_range(player)) {
-			catchUpTo(player);
+		
+		if (!is_in_range(mainAssist)) {
+			catchUpTo(mainAssist);
 		} else {
-			priestEngage(player);
+			priestEngage(mainAssist);
 		}
 	},1000/4); // Loops every 1/4 seconds.
 }, 1000); //Delay execution of Grind Code to load ajax.
