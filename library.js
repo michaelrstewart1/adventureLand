@@ -86,7 +86,7 @@ function engageTarget(target) {
 		
 	} else {
 		//they are out of range. Approach them
-		if (!character.moving) {
+		if (!character.moving && !seeking) {
 			log("Moving towards target");
 			smarter_move(
 				target.x,
