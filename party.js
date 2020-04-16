@@ -35,14 +35,20 @@ function update_character_localstorage() {
 	set("character_data_"+character.name, data);
 }
 
+function on_cm(name,data) {
+	if (players.indexOf(name) >= 0) {
+	    game_log("Received a code message from authorized user: "+name);
+	}
+}
+
 function on_party_invite(name) {
-	if (name == "Beef" || name == "Pragmus" || name == "CohenPlaces" || name == "GoldenRanger") {
+	if (players.indexOf(name) >= 0) {
 		accept_party_invite(name);
 	}
 }
 
 function on_party_request(name) {
-	if (name == "Beef" || name == "Pragmus" || name == "CohenPlaces" || name == "GoldenRanger") {
+	if (players.indexOf(name) >= 0) {
 		accept_party_request(name);
 	}
 }
