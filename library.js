@@ -895,6 +895,10 @@ function catchUpTo(target) {
 //TODO: need to make the character list dynamic instead of hard-coding
 var players = ['Beef','Pragmus','CohenPlaces','GoldRanger'];
 
+setInterval(function() {
+	update_character_localstorage();
+}, 100);
+
 function update_character_localstorage() {
 	let data = {
 		'name': character.name,
