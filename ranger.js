@@ -1,8 +1,12 @@
 //ranger
 var attack_mode=true
+var party = get_party();
+var partyKeys = Object.keys(party);
 
 setTimeout(function () {
-	setInterval(function() {
+	setInterval(function(){
+		party = get_party();
+		partyKeys = Object.keys(party);
 		use_regen();
 		loot();
 		doInvites();
