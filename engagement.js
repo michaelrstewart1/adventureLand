@@ -132,11 +132,12 @@ function mainTank() {
 	if (character.party) {
 		var targetToTaunt = protect();
 		if (targetToTaunt) {
-			log("Taunt "+targetToTaunt.name);
 			target = targetToTaunt;
 			if (is_in_range(target) && !is_on_cooldown("taunt")) {
+				log("Taunt "+targetToTaunt.name);
 				use_skill("taunt");
 			} else if (!is_in_range(target) && !is_on_cooldown("charge")) {
+				log("Charging "+targetToTaunt.name);
 				use_skill("charge");	
 			}
 		}
