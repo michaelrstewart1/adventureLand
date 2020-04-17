@@ -81,7 +81,7 @@ function defaultCombat() {
 }
 
 var urls = [
-	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/main.js',
+//	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/main.js',
 	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/party.js',
 	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/engagement.js',
 	'https://cdn.jsdelivr.net/gh/michaelrstewart1/adventureLand@master/movement.js',
