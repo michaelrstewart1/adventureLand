@@ -59,13 +59,27 @@ function priestEngage(player) {
 		}
 	}
 }
+
 function assist(player) {
 	if (!is_in_range(player) && !seeking) {
 		catchUpTo(player);
 	} else {
-		var whatToAttack = parent.entities[get_player(player.name).target];
-		if (whatToAttack) {
-			engageTarget(whatToAttack);
+		let playerToAssist = get("character_data_"+player.name);
+		if (playerToAssist) {
+			if (playerToAssist.ts > Date.now() - 2000) {
+				var whatToAttack = parent.entities[playerToAssist.target];
+				if (whatToAttack) {
+					engageTarget(whatToAttack);
+				}
+			} else {
+				//get new data
+				send_cm(player.name, {'command': 'get_character_data'});
+				return;
+			}
+		} else {
+			//get new data
+			send_cm(player.name, {'command': 'get_character_data'});
+			return;
 		}
 	}	
 }
