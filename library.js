@@ -1322,12 +1322,12 @@ function on_cm(name,data) {
 		game_log("Received a code message from authorized user: "+name);
 		if (data) {
 			if (data.command == "get_character_data") {
-				let charData = get_character_data();
-				let data = {
+				let character_data = get_character_data();
+				let message = {
 					"command": "update_character_data",
-					"data": data,
+					"data": character_data,
 				}
-				send_cm(name,data);
+				send_cm(name,message);
 			} else if (data.command == "update_character_data") {
 				let character_data = data.data;
 				set("character_data_"+name, character_data);
