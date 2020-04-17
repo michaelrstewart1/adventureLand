@@ -17,9 +17,11 @@ function getMainAssist() {
 					tank = potentialTank;
 				} else if (potentialTank.ts <= Date.now() - 2000) {
 					send_cm(partyKeys[i], {'command':'get_character_data'});
+					return;
 				}
 			} else if (players.indexOf(partyKeys[i]) >= 0) {
 				send_cm(partyKeys[i], {'command':'get_character_data'});
+				return;
 			}
 		}
 		if (tank) {
