@@ -1326,7 +1326,7 @@ function update_external_character_data(name) {
 
 function on_cm(name,data) {
 	if (players.indexOf(name) >= 0) {
-		game_log("Received a code message from authorized user: "+name);
+		//game_log("Received a code message from authorized user: "+name);
 		if (data) {
 			if (data.command == "get_character_data") {
 				let character_data = get_character_data();
