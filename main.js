@@ -55,7 +55,6 @@ function priestCombat() {
 		priestEngage(mainAssist);
 	}
 }
-
 function defaultCombat() {
 	var player;
 
@@ -68,7 +67,7 @@ function defaultCombat() {
 		if (mainAssist) {
 			mode = "assist"
 		} else {
-			mode = "solo";
+			return;
 		}
 	} else {
 		mode = "solo";
