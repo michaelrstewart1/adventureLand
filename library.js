@@ -18,11 +18,16 @@ function getMainAssist() {
 
 		for (let i in partyKeys) {
 			let potentialTank = get("character_data_"+partyKeys[i]);
+			//log(potentialTank);
 			if (potentialTank) {
 				if (potentialTank.ts > Date.now() - 2000 && potentialTank.level > highestTankLevel && potentialTank.ctype == "warrior") {
 					highestTankLevel = potentialTank.level;
 					tank = potentialTank;
+				} else if (potentialTank.ts <= Date.now() - 2000) {
+					send_cm(partyKeys[i], {'command':'get_character_data'});
 				}
+			} else if (players.indexOf(partyKeys[i]) >= 0) {
+				send_cm(partyKeys[i], {'command':'get_character_data'});
 			}
 		}
 		if (tank) {
